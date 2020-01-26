@@ -11,3 +11,55 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+header {
+  font-size: 3em;
+  font-weight: 500;
+  text-align: center;
+  padding: 20px;
+}
+
+footer {
+  margin-top: 40px;
+  padding: 0px 0px 40px 0px;
+  text-align: center;
+}
+
+.profile {
+  text-align: center;
+}
+.profile-image {
+  width: 200px;
+  border-radius: 200px;
+  align-self: center;
+}
+
+.itemBox {
+  border: 1px;
+  border-color: grey;
+  background-color: white;
+  border-style: solid;
+  border-radius: 5px;
+  margin: 30px 80px;
+  padding: 20px;
+}
+
+.itemBox-name {
+  font-size: 1.6em;
+}
+
+.itemBox-button {
+  background-color: green;
+  border-radius: 10px;
+  border: 0;
+  color: white;
+  font-size: 2em;
+  padding: 10px;
+  margin: 10px;
+
+}
+
+.itemBox-button :hover {
+  background-color: grey;
+}
