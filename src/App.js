@@ -11,6 +11,10 @@ class App extends Component {
     this.state = { items:[] };
   }
 
+  componentDidMount() {
+    this.setState({items: this.getAllItems()});
+  }
+
   getAllItems() {
     let items = [
       { id: 1,
@@ -46,11 +50,10 @@ class App extends Component {
       <fragment>
         <Header/>
         <Profile/>
-        {this.tems && this.items.map(item => (
+        {this.state.items && this.state.items.map(item => (
           <ItemBox 
             key={item.id} 
             item={item}
-            clickYummy={this.handleClickYummy}
             className="itemBox"
           />
         ))}
