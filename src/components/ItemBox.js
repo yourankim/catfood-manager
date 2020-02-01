@@ -4,8 +4,12 @@ function ItemBox(props) {
   const item = props.item;
   
   const onClickYummy = function() {
-   alert("잘 먹을게. 냠냠!");
-   props.handleItemCount(props.item.id);
+    if(item.count < 1) {
+      alert("다 먹었어. 꼬르륵...");
+      return;
+    } 
+    alert("잘 먹을게. 냠냠!");
+    props.handleItemCount(props.item.id);
   }
 
   return (
