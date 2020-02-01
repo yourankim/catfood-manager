@@ -9,10 +9,27 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { items:[] };
+    this.handleItemCount = this.handleItemCount.bind(this);
   }
 
   componentDidMount() {
     this.setState({items: this.getAllItems()});
+  }
+
+  handleItemCount(itemId) {
+    let items = this.state.items;
+    
+    for(let i = 0; i < items.length; i++) {
+      if(items[i].id != itemId) continue;
+
+      let newCount = items[i].count;
+      newCount = newCount - 1;
+      if(newCount < 0) return;
+      items[i].count = newCount;
+      break;
+    } 
+    
+    this.setState({ items: items });
   }
 
   getAllItems() {
@@ -55,6 +72,7 @@ class App extends Component {
             key={item.id} 
             item={item}
             className="itemBox"
+            handleItemCount={this.handleItemCount}
           />
         ))}
         <Footer/>
