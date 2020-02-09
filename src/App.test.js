@@ -2,6 +2,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import App from './App';
 import ItemBox from './components/ItemBox';
+import NewItemBox from './components/NewItemBox';
 
 /*
 test('renders learn react link', () => {
@@ -62,7 +63,7 @@ describe('<App />', () => {
   });
 
   it('<NewItemBox/>', () => {
-    const newItemBox = render(<NewItemBox/>);
+    const newItemBox = render(<NewItemBox />);
     newItemBox.getByPlaceholderText('식품명');
     newItemBox.getByPlaceholderText('맛');
     newItemBox.getByPlaceholderText('용량(g)');
@@ -72,7 +73,7 @@ describe('<App />', () => {
   });
 
   it('change inputs', () => {
-    const {getByPlaceholderText} = render(<App items={items} />);
+    const {getByPlaceholderText} = render(<NewItemBox />);
     fireEvent.change(getByPlaceholderText("식품명"), { target: { value : "알파스피릿" }});
     fireEvent.change(getByPlaceholderText("맛"), { target: { value : "흰살생선과 사과" }});
     fireEvent.change(getByPlaceholderText("용량(g)"), { target: { value : "85" }});
