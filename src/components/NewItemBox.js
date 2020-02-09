@@ -8,7 +8,7 @@ function NewItemBox(props) {
   const [created, setCreated] = useState('');
   const [count, setCount] = useState('');
 
-  const onRegister = (e) => {
+  const onAddItem = (e) => {
     e.preventDefault(); // 이벤트를 취소할 수 있는 경우 전파를 막지 않고 이벤트를 취소
     e.stopPropagation(); // 현재 이벤트 이후의 전파를 차단
 
@@ -50,13 +50,13 @@ function NewItemBox(props) {
 
   return (
     <div className="itemBox">
-      <form onSubmit={onRegister}>
+      <form onSubmit={onAddItem}>
         <input type="text" id="name" value={name} onChange={(v) => setName(v.target.value)} placeholder="식품명"></input>
         <input type="text" id="flavor" value={flavor} onChange={(v) => setFlavor(v.target.value)} placeholder="맛"></input>
         <input type="number" id="amount" value={amount} onChange={(v) => setAmount(v.target.value)} placeholder="용량(g)"></input>
         <input type="text" id="created" value={created} onChange={(v) => setCreated(v.target.value)} placeholder="구입일"></input>
         <input type="number" id="count" value={count} onChange={(v) => setCount(v.target.value)} placeholder="개수"></input>
-        <button>저장하기</button>
+        <button type="submit">저장하기</button>
       </form>
     </div>
   );

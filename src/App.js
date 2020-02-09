@@ -14,6 +14,7 @@ class App extends Component {
       isAddItem: false, 
     };
     this.handleItemCount = this.handleItemCount.bind(this);
+    this.handleItemAdd = this.handleItemAdd.bind(this);
   }
 
   componentDidMount() {
@@ -38,10 +39,10 @@ class App extends Component {
 
   handleItemAdd(item) {
     let items = this.state.items;
-    const nextId = items.pop().id;
-    item.id = nextId + 1;
+    const nextId = items.length + 2;
+    item.id = nextId;
     items.push(item);
-    this.setState( { items: items} );
+    this.setState( { items: items, isAddItem: false} );
   }
 
   getAllItems() {
@@ -88,7 +89,7 @@ class App extends Component {
           />
         ))}
         <button onClick={() => (this.setState({ isAddItem : !this.state.isAddItem }))}>식량 추가하기</button>
-        {this.state.isAddItem && <NewItemBox />}
+        {this.state.isAddItem && <NewItemBox handleItemAdd={this.handleItemAdd} />}
         <Footer/>
       </fragment>
       

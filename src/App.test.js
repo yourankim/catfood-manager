@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, findByText } from '@testing-library/react';
 import App from './App';
 import ItemBox from './components/ItemBox';
 import NewItemBox from './components/NewItemBox';
@@ -118,10 +118,26 @@ describe('<App />', () => {
   it('add-button click and show NewItemBox', () => {
     const app = render(<App items={items} />);
     const button = app.getByText('식량 추가하기');
+
+    fireEvent.click(button);
+    app.getByText('저장하기');
+  });
+
+  it('add new item', () => {
+    const {getByText, getAllByText, getByPlaceholderText} = render(<App items={items} />);
+    const button = getByText('식량 추가하기');
     const length = items.length;
 
     fireEvent.click(button);
-    app.getByPlaceHolderText('식품명');
-  });
+    fireEvent.change(getByPlaceholderText("식품명"), { target: { value : "알파스피릿" }});
+    fireEvent.change(getByPlaceholderText("맛"), { target: { value : "흰살생선과 사과" }});
+    fireEvent.change(getByPlaceholderText("용량(g)"), { target: { value : "85" }});
+    fireEvent.change(getByPlaceholderText("개수"), { target: { value : "1" }});
+    fireEvent.change(getByPlaceholderText("구입일"), { target: { value : "2020-02-01" }});
+    fireEvent.click(getByText('저장하기'));
+
+    const newItems = getAllByText('yummy!');
+    expect(newItems).toHaveLength(length + 1);  
+  })
 
 });
