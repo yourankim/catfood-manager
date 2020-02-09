@@ -42,27 +42,8 @@ describe('<ItemBox />', () => {
   });
 });
 
-
-describe('<App />', () => {
-
-  it('render item list properly', () => {
-    const { getByText } = render(<App items={items} />);
-    getByText(items[0].name);
-    getByText(items[1].name);
-    getByText(items[2].name);
-  });
-  
-  it('yummy button click', () => {
-    const app = render(<App items={items} />);
-    const buttons = app.getAllByText('yummy!');
-    const count = items[0].count;
-    const countDiv = app.getByText(`${count}개 남음`);
-    
-    fireEvent.click(buttons[0]);
-    expect(countDiv).toHaveTextContent(`${count-1}개 남음`);
-  });
-
-  it('<NewItemBox/>', () => {
+describe('<NewItemBox />', () => {
+  it('has inputs and submit button', () => {
     const newItemBox = render(<NewItemBox />);
     newItemBox.getByPlaceholderText('식품명');
     newItemBox.getByPlaceholderText('맛');
@@ -85,6 +66,62 @@ describe('<App />', () => {
     expect(getByPlaceholderText("용량(g)")).toHaveAttribute('value', '85');
     expect(getByPlaceholderText("개수")).toHaveAttribute('value', '1');
     expect(getByPlaceholderText("구입일")).toHaveAttribute('value', '2020-02-01');
+  });
+
+  it('call handleItemAdd and clear inputs', () => {
+    const handleItemAdd = jest.fn();
+    const {getByText, getByPlaceholderText } = render(<NewItemBox handleItemAdd={handleItemAdd}/>);
+    fireEvent.change(getByPlaceholderText("식품명"), { target: { value : "알파스피릿" }});
+    fireEvent.change(getByPlaceholderText("맛"), { target: { value : "흰살생선과 사과" }});
+    fireEvent.change(getByPlaceholderText("용량(g)"), { target: { value : "85" }});
+    fireEvent.change(getByPlaceholderText("개수"), { target: { value : "1" }});
+    fireEvent.change(getByPlaceholderText("구입일"), { target: { value : "2020-02-01" }});
+    fireEvent.click(getByText('저장하기'));
+    expect(handleItemAdd).toBeCalledWith({
+      name: "알파스피릿",
+      flavor: "흰살생선과 사과",
+      amount: "85",
+      count: "1",
+      created: "2020-02-01"
+    });
+    expect(getByPlaceholderText("식품명")).toHaveAttribute('value','');
+    expect(getByPlaceholderText("맛")).toHaveAttribute('value','');
+    expect(getByPlaceholderText("용량(g)")).toHaveAttribute('value','');
+    expect(getByPlaceholderText("개수")).toHaveAttribute('value','');
+    expect(getByPlaceholderText("구입일")).toHaveAttribute('value','');
+
+
+  });
+});
+
+
+describe('<App />', () => {
+
+  it('render item list properly', () => {
+    const { getByText } = render(<App items={items} />);
+    getByText(items[0].name);
+    getByText(items[1].name);
+    getByText(items[2].name);
+    getByText("식량 추가하기");
+  });
+  
+  it('yummy button click', () => {
+    const app = render(<App items={items} />);
+    const buttons = app.getAllByText('yummy!');
+    const count = items[0].count;
+    const countDiv = app.getByText(`${count}개 남음`);
+    
+    fireEvent.click(buttons[0]);
+    expect(countDiv).toHaveTextContent(`${count-1}개 남음`);
+  });
+
+  it('add-button click and show NewItemBox', () => {
+    const app = render(<App items={items} />);
+    const button = app.getByText('식량 추가하기');
+    const length = items.length;
+
+    fireEvent.click(button);
+    app.getByPlaceHolderText('식품명');
   });
 
 });

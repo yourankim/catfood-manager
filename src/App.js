@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ItemBox from './components/ItemBox';
+import NewItemBox from './components/NewItemBox';
 import Profile from './components/Profile';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { items:[] };
+    this.state = { 
+      items:[],
+      isAddItem: false, 
+    };
     this.handleItemCount = this.handleItemCount.bind(this);
   }
 
@@ -20,7 +24,7 @@ class App extends Component {
     let items = this.state.items;
     
     for(let i = 0; i < items.length; i++) {
-      if(items[i].id != itemId) continue;
+      if(items[i].id !== itemId) continue;
 
       let newCount = items[i].count;
       newCount = newCount - 1;
@@ -30,6 +34,14 @@ class App extends Component {
     } 
     
     this.setState({ items: items });
+  }
+
+  handleItemAdd(item) {
+    let items = this.state.items;
+    const nextId = items.pop().id;
+    item.id = nextId + 1;
+    items.push(item);
+    this.setState( { items: items} );
   }
 
   getAllItems() {
@@ -75,6 +87,8 @@ class App extends Component {
             handleItemCount={this.handleItemCount}
           />
         ))}
+        <button onClick={() => (this.setState({ isAddItem : !this.state.isAddItem }))}>식량 추가하기</button>
+        {this.state.isAddItem && <NewItemBox />}
         <Footer/>
       </fragment>
       
