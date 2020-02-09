@@ -16,7 +16,7 @@ function ItemBox(props) {
     <div className="itemBox">
       <div className="itemBox-name">{item.name}</div>
       <div>{item.flavor}</div>
-      <div>{item.amount}</div>
+      <div>{item.amount}g</div>
       <div>{item.created} 구입</div>
       <div>{item.count}개 남음</div>
       <button className="itemBox-button" onClick={onClickYummy}>yummy!</button>
