@@ -63,3 +63,22 @@ footer {
 .itemBox-button :hover {
   background-color: grey;
 }
+
+.itemBox input {
+  margin: 5px;
+}
+
+.addItem {
+  text-align: center;
+}
+.addItem-button {
+  background-color: gold;
+  color: black;
+  border-radius: 5px;
+  border: 0;
+  font-size: 1.6em;
+  padding: 10px;
+  margin: 10px;
+  width: 80%;
+
+}

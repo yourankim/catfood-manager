@@ -88,8 +88,10 @@ class App extends Component {
             handleItemCount={this.handleItemCount}
           />
         ))}
-        <button onClick={() => (this.setState({ isAddItem : !this.state.isAddItem }))}>식량 추가하기</button>
-        {this.state.isAddItem && <NewItemBox handleItemAdd={this.handleItemAdd} />}
+        <div className="addItem">
+          <button className="addItem-button" onClick={() => (this.setState({ isAddItem : !this.state.isAddItem }))}>식량 추가하기</button>
+          {this.state.isAddItem && <NewItemBox handleItemAdd={this.handleItemAdd} />}
+        </div>
         <Footer/>
       </fragment>
       
