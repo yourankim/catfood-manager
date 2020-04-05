@@ -22,17 +22,11 @@ class App extends Component {
 
   handleItemCount(itemId) {
     let items = this.state.items;
-
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].id !== itemId) continue;
-
-      let newCount = items[i].count;
-      newCount = newCount - 1;
-      if (newCount < 0) return;
-      items[i].count = newCount;
-      break;
-    }
-
+    const index = items.findIndex(item => item.id === itemId);
+    const newCount = items[index].count - 1;
+    if (newCount < 0) return;
+    items[index].count = newCount;
+    this.setItemToLocalStorage(items);
     this.setState({ items: items });
   }
 
