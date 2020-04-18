@@ -5,12 +5,24 @@ import ItemBox from "./components/ItemBox";
 import NewItemBox from "./components/NewItemBox";
 import Profile from "./components/Profile";
 
-class App extends Component {
-  constructor(props) {
+export interface AppProps {
+  //ownerName: string;
+}
+export interface Item {
+  id: number;
+  name: string;
+  flavor: string;
+  amount: number;
+  created: string;
+  count: number;
+}
+class App extends Component<AppProps, { items: Item[]; isAddItem: boolean }> {
+  constructor(props: AppProps) {
+    //console.log(props.ownerName);
     super(props);
     this.state = {
       items: [],
-      isAddItem: false
+      isAddItem: false,
     };
     this.handleItemCount = this.handleItemCount.bind(this);
     this.handleItemAdd = this.handleItemAdd.bind(this);
@@ -20,9 +32,9 @@ class App extends Component {
     this.setState({ items: this.getAllItems() || [] });
   }
 
-  handleItemCount(itemId) {
+  handleItemCount(itemId: number) {
     let items = this.state.items;
-    const index = items.findIndex(item => item.id === itemId);
+    const index = items.findIndex((item: Item) => item.id === itemId);
     const newCount = items[index].count - 1;
     if (newCount < 0) return;
     items[index].count = newCount;
@@ -30,7 +42,7 @@ class App extends Component {
     this.setState({ items: items });
   }
 
-  handleItemAdd(item) {
+  handleItemAdd(item: Item) {
     let items = this.state.items;
     const nextId = items.length + 2;
     item.id = nextId;
@@ -39,7 +51,7 @@ class App extends Component {
     this.setState({ items: items, isAddItem: false });
   }
 
-  setItemToLocalStorage(items) {
+  setItemToLocalStorage(items: Item[]) {
     try {
       localStorage.setItem("catfood-items", JSON.stringify(items));
     } catch (e) {
@@ -62,15 +74,14 @@ class App extends Component {
 
   render() {
     return (
-      <fragment>
+      <>
         <Header />
         <Profile />
         {this.state.items &&
-          this.state.items.map(item => (
+          this.state.items.map((item) => (
             <ItemBox
               key={item.id}
               item={item}
-              className='itemBox'
               handleItemCount={this.handleItemCount}
             />
           ))}
@@ -86,7 +97,7 @@ class App extends Component {
           )}
         </div>
         <Footer />
-      </fragment>
+      </>
     );
   }
 }
