@@ -74,17 +74,9 @@ class App extends Component<AppProps, { items: Item[]; isAddItem: boolean }> {
 
   render() {
     return (
-      <>
+      <div className="container">
         <Header />
         <Profile />
-        {this.state.items &&
-          this.state.items.map((item) => (
-            <ItemBox
-              key={item.id}
-              item={item}
-              handleItemCount={this.handleItemCount}
-            />
-          ))}
         <div className='addItem'>
           <button
             className='addItem-button'
@@ -96,8 +88,18 @@ class App extends Component<AppProps, { items: Item[]; isAddItem: boolean }> {
             <NewItemBox handleItemAdd={this.handleItemAdd} />
           )}
         </div>
+        <div className="item-list">
+          {this.state.items &&
+            this.state.items.map((item) => (
+            <ItemBox
+              key={item.id}
+              item={item}
+              handleItemCount={this.handleItemCount}
+            />
+          ))}
+        </div>
         <Footer />
-      </>
+      </div>
     );
   }
 }
